@@ -5,13 +5,6 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Ứng dụng tuyên truyền công tác bầu cử</title>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-5SP72K5V');</script>
-<!-- End Google Tag Manager -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <style>
         * {
@@ -952,19 +945,73 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         min-width: 40px;
     }
 }
+    /* Counter styles */
+/.counter-container {
+    /* Đảm bảo container nằm trên một nền tối (như footer) */
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); 
+    padding: 15px 0;
+    margin-top: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
 
+.counter-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Khoảng cách giữa nhãn và số đếm */
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.counter-label {
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+ .counter-number {
+    /* Khung bao quanh huy hiệu số đếm */
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px 25px; /* Tăng padding để khung lớn hơn */
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    /* Căn giữa hình ảnh huy hiệu */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Giữ nguyên kiểu chữ cũ */
+    color: white; 
+    font-weight: bold;
+    font-size: 18px;
+    min-width: 80px; 
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
 </style>
 </head>
 <body>
-	<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5SP72K5V"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <header class="site-header">
 <div class="title-main">KHU VỰC BỎ PHIẾU SỐ …</div>
 <div class="title-sub">Từ tổ dân phố 14TG đến tổ dân phố 20TG</div>
 <div class="title-sub">Phường Thanh Khê, thành phố Đà Nẵng</div>
 </header>
+<div id="countdown-container" style="
+    text-align:center;
+    margin:12px 0;
+    padding:12px;
+    background:#ffffffee;
+    border-radius:14px;
+    border:2px solid #0099ff;
+    box-shadow:0 0 8px rgba(0,0,0,0.15);
+    font-size:16px;
+    font-weight:600;
+    color:#003366;
+">
+    ⏳ NGÀY BẦU CỬ:<br>
+    <span id="countdown" style="font-size:22px; color:#d40000; font-weight:700;"></span>
+</div>
 <div class="container">
 <header>
 <h1>ỨNG DỤNG TUYÊN TRUYỀN <br/> CÔNG TÁC BẦU CỬ<br/>ĐẠI BIỂU QUỐC HỘI <br/> VÀ ĐẠI BIỂU HĐND CÁC CẤP</h1>
@@ -973,12 +1020,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <div class="marquee-item" id="marqueeItem"></div>
 </div>
 <div class="qa-highlight-container">
-<button class="qa-highlight-btn" onclick="openPDFViewer()">
-                📕 Tài liệu về bầu cử               
-            </button>
-<button class="qa-highlight-btn" onclick="showSection('qa')">
-                🎵 Nghe nội dung hỏi đáp Luật bầu cử
+
+    <button class="qa-highlight-btn" onclick="openPDFViewer()">
+        📕 Tài liệu về bầu cử              
+    </button>
+
+    <button class="qa-highlight-btn" onclick="showSection('qa')">
+        🎵 Nghe nội dung hỏi đáp Luật bầu cử
+    </button>
+
+    <button class="qa-highlight-btn" 
+        style="background:white; color:#0066cc; border:3px solid #0066cc;"
+        onclick="window.open('https://hoidongbaucu.quochoi.vn','_blank')">
+    🌐 Hội đồng bầu cử quốc gia
 </button>
+
 </div>
 <div class="menu">
 <button onclick="showSection('date-location')">📅 Ngày và địa điểm bầu cử</button>
@@ -1134,6 +1190,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <img alt="Slideshow" id="slide" src="img/img1.jpg"/></div>
 <footer class="site-footer">
 <p>TỔ CÔNG NGHỆ SỐ CỘNG ĐỒNG TRUNG BÌNH A3 <br/> PHƯỜNG THANH KHÊ, THÀNH PHỐ ĐÀ NẴNG</p>
+<div style="text-align:center; margin:10px 0;">
+        <img src="https://api.visitorbadge.io/api/visitors?path=tuyentruyenbaucu&label=Tổng%20lượt%20truy%20cập&countColor=%23007b5e&labelColor=rgba(255,255,255,0)&style=flat-square" 
+       alt="Tổng lượt truy cập"
+       style="height:28px; border:1px solid #007b5e; border-radius:6px; padding:3px; background:rgba(255,255,255,0.8);">
+       </div>
 </footer>
 <style>
 .footer-slideshow {
@@ -1856,6 +1917,30 @@ function showCandidateNotice(sectionId) {
     updatePlaylistHighlight();
 }
             </script>
-</body>
+            <script>
+// Đếm ngược đến ngày bầu cử 15/03/2026
+const electionDay = new Date("2026-03-15T00:00:00").getTime();
 
+function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = electionDay - now;
+
+    if (distance < 0) {
+        document.getElementById("countdown").innerHTML = "Hôm nay là ngày bầu cử!";
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+        `${days} ngày ${hours} giờ ${minutes} phút ${seconds} giây`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+</body>
 </html> 
